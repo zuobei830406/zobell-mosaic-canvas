@@ -648,7 +648,6 @@ export default function App() {
     <div style={{ height:"100vh",display:"flex",flexDirection:"column",background:m.bg,fontFamily:m.font,color:m.text,fontSize:13,overflow:"hidden" }}>
       {/* Title Bar */}
       <div style={{ background:"linear-gradient(to bottom,#e8e8e8,#d4d4d4)",borderBottom:"1px solid #b0b0b0",padding:"9px 18px",display:"flex",alignItems:"center",justifyContent:"center",userSelect:"none",position:"relative",flexShrink:0 }}>
-        <span style={{ position:"absolute",left:18,fontSize:13,fontWeight:600,color:"#333" }}>Zobell Mosaic Canvas Calculator</span>
         <MSeg options={[{value:"ratio",label:"按比例查找"},{value:"free",label:"自由查找"},{value:"analyze",label:"尺寸分析"},{value:"matrix",label:"矩阵热力图"}]}
           value={mode} onChange={v=>{setMode(v);setSelResult(null);setShowCount(30);setSortField("default")}}/>
         <span style={{ position:"absolute",right:18,fontSize:10,color:m.text3,fontFamily:m.mono }}>v4.0</span>
@@ -788,8 +787,8 @@ export default function App() {
             <div style={{ flex:1,position:"relative" }}>
               <MatrixView effectiveTile={et} selectedCell={matrixCell} onSelectCell={setMatrixCell}/>
             </div>
-            {/* Selected cell detail bar */}
-            {matrixCell && (()=>{
+            {/* Cell detail bar / default info bar */}
+            {matrixCell ? (()=>{
               const w=(matrixCell.col+1)*step, h=(matrixCell.row+1)*step;
               const dw=calcDW(w),dh=calcDH(h),md=Math.min(Math.max(dw,0),Math.max(dh,0));
               return (
@@ -811,7 +810,16 @@ export default function App() {
                     </div>
                   </div>
                 </div>);
-            })()}
+            })() : (
+              <div style={{ padding:"10px 14px",borderTop:`1px solid ${m.sep}`,background:"#f0f0f0",flexShrink:0 }}>
+                <div style={{ display:"flex",alignItems:"center",gap:14,flexWrap:"wrap",fontSize:11,color:m.text2 }}>
+                  <span>模式: <strong style={{ color:m.text }}>矩阵热力图</strong></span>
+                  <span>步进: <strong style={{ color:m.text,fontFamily:m.mono }}>{step}px</strong></span>
+                  {et>1&&<span>Tile: <strong style={{ color:"#e8710a",fontFamily:m.mono }}>{et}px</strong></span>}
+                  <span style={{ color:m.text3 }}>点击矩阵中的格子查看宽高细分详情</span>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
