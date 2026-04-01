@@ -647,7 +647,7 @@ export default function App() {
   return (
     <div style={{ height:"100vh",display:"flex",flexDirection:"column",background:m.bg,fontFamily:m.font,color:m.text,fontSize:13,overflow:"hidden" }}>
       {/* Title Bar */}
-      <div style={{ background:"linear-gradient(to bottom,#e8e8e8,#d4d4d4)",borderBottom:"1px solid #b0b0b0",padding:"9px 18px",display:"flex",alignItems:"center",justifyContent:"center",userSelect:"none",position:"relative",flexShrink:0 }}>
+      <div style={{ background:m.bg,borderBottom:`1px solid ${m.sep}`,padding:"8px 18px",display:"flex",alignItems:"center",justifyContent:"center",userSelect:"none",position:"relative",flexShrink:0 }}>
         <MSeg options={[{value:"ratio",label:"按比例查找"},{value:"free",label:"自由查找"},{value:"analyze",label:"尺寸分析"},{value:"matrix",label:"矩阵热力图"}]}
           value={mode} onChange={v=>{setMode(v);setSelResult(null);setShowCount(30);setSortField("default")}}/>
         <span style={{ position:"absolute",right:18,fontSize:10,color:m.text3,fontFamily:m.mono }}>v4.0</span>
