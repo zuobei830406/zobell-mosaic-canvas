@@ -645,24 +645,17 @@ export default function App() {
   const tiH=et>1&&previewDims.height%et===0?previewDims.height/et:null;
 
   return (
-    <div style={{ minHeight:"100vh",background:m.bg,fontFamily:m.font,color:m.text,fontSize:13 }}>
+    <div style={{ height:"100vh",display:"flex",flexDirection:"column",background:m.bg,fontFamily:m.font,color:m.text,fontSize:13,overflow:"hidden" }}>
       {/* Title Bar */}
-      <div style={{ background:"linear-gradient(to bottom,#e8e8e8,#d4d4d4)",borderBottom:"1px solid #b0b0b0",padding:"9px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",userSelect:"none" }}>
-        <div style={{ display:"flex",alignItems:"center",gap:10 }}>
-          <div style={{ display:"flex",gap:6 }}>
-            <div style={{ width:12,height:12,borderRadius:6,background:"#ff5f57",border:"1px solid #e33e32" }}/>
-            <div style={{ width:12,height:12,borderRadius:6,background:"#febc2e",border:"1px solid #e5a00d" }}/>
-            <div style={{ width:12,height:12,borderRadius:6,background:"#28c840",border:"1px solid #1aab29" }}/>
-          </div>
-          <span style={{ fontSize:13,fontWeight:600,color:"#333",marginLeft:6 }}>Zobell Mosaic Canvas Calculator</span>
-        </div>
+      <div style={{ background:"linear-gradient(to bottom,#e8e8e8,#d4d4d4)",borderBottom:"1px solid #b0b0b0",padding:"9px 18px",display:"flex",alignItems:"center",justifyContent:"center",userSelect:"none",position:"relative",flexShrink:0 }}>
+        <span style={{ position:"absolute",left:18,fontSize:13,fontWeight:600,color:"#333" }}>Zobell Mosaic Canvas Calculator</span>
         <MSeg options={[{value:"ratio",label:"按比例查找"},{value:"free",label:"自由查找"},{value:"analyze",label:"尺寸分析"},{value:"matrix",label:"矩阵热力图"}]}
           value={mode} onChange={v=>{setMode(v);setSelResult(null);setShowCount(30);setSortField("default")}}/>
-        <span style={{ fontSize:10,color:m.text3,fontFamily:m.mono }}>v4.0</span>
+        <span style={{ position:"absolute",right:18,fontSize:10,color:m.text3,fontFamily:m.mono }}>v4.0</span>
       </div>
 
       {/* Body */}
-      <div style={{ display:"flex",height:"calc(100vh - 40px)",overflow:"hidden" }}>
+      <div style={{ display:"flex",flex:1,overflow:"hidden",minHeight:0 }}>
         {/* LEFT SIDEBAR */}
         <div style={{ width:320,minWidth:320,borderRight:`1px solid ${m.sep}`,background:"#f0f0f0",overflowY:"auto",padding:12,display:"flex",flexDirection:"column",gap:10 }}>
           <Panel title="Tile 尺寸 Tile Size">
@@ -800,7 +793,7 @@ export default function App() {
               const w=(matrixCell.col+1)*step, h=(matrixCell.row+1)*step;
               const dw=calcDW(w),dh=calcDH(h),md=Math.min(Math.max(dw,0),Math.max(dh,0));
               return (
-                <div style={{ padding:"10px 14px",borderTop:`1px solid ${m.sep}`,background:"#f0f0f0" }}>
+                <div style={{ padding:"10px 14px",borderTop:`1px solid ${m.sep}`,background:"#f0f0f0",flexShrink:0 }}>
                   <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:8,flexWrap:"wrap" }}>
                     <span style={{ fontFamily:m.mono,fontSize:16,fontWeight:700 }}>{w} × {h}</span>
                     <DBadge depth={md} ts={et}/>
@@ -824,15 +817,15 @@ export default function App() {
 
         {/* RIGHT: Preview (ratio, free, analyze modes) */}
         {mode!=="matrix"&&(
-          <div style={{ flex:1,display:"flex",flexDirection:"column",background:"#f4f4f4",overflow:"auto",minWidth:500 }}>
-            <div style={{ padding:"7px 14px",borderBottom:`1px solid ${m.sep}`,background:"#f0f0f0",display:"flex",alignItems:"center",gap:10,flexWrap:"wrap" }}>
+          <div style={{ flex:1,display:"flex",flexDirection:"column",background:"#f4f4f4",overflow:"hidden",minWidth:500 }}>
+            <div style={{ padding:"7px 14px",borderBottom:`1px solid ${m.sep}`,background:"#f0f0f0",display:"flex",alignItems:"center",gap:10,flexWrap:"wrap",flexShrink:0 }}>
               <span style={{ fontSize:11,fontWeight:600,color:m.text2 }}>递归细分预览</span>
               <span style={{ fontFamily:m.mono,fontSize:13,fontWeight:700 }}>{previewDims.width} × {previewDims.height}</span>
               <DBadge depth={pMD} ts={et}/>
               <span style={{ fontFamily:m.mono,fontSize:10,color:m.text3 }}>{(previewDims.width*previewDims.height/1e6).toFixed(1)} MP</span>
               {et>1&&tiW&&tiH&&<span style={{ fontFamily:m.mono,fontSize:10,color:"#e8710a" }}>{tiW}×{tiH} tiles</span>}
             </div>
-            <div style={{ flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,gap:14,minHeight:0 }}>
+            <div style={{ flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:20,gap:14,minHeight:0,overflowY:"auto" }}>
               <div style={{ flex:1,display:"flex",alignItems:"center",justifyContent:"center",width:"100%",minHeight:300 }}>
                 <GridPreview width={previewDims.width} height={previewDims.height} level={viewLevel} cW={600} cH={480} image={image} imageOpacity={imgOp} imageFit={imgFit} tileSize={et}/>
               </div>
@@ -854,7 +847,7 @@ export default function App() {
                   }}>L{lv} ({Math.round(previewDims.width/Math.pow(2,lv))}×{Math.round(previewDims.height/Math.pow(2,lv))})</button>)})}
               </div>
             </div>
-            <div style={{ padding:"10px 14px",borderTop:`1px solid ${m.sep}`,background:"#f0f0f0" }}>
+            <div style={{ padding:"10px 14px",borderTop:`1px solid ${m.sep}`,background:"#f0f0f0",flexShrink:0 }}>
               <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:8 }}>
                 <div style={{ padding:10,background:"#fff",borderRadius:6,border:`1px solid ${m.sep}` }}>
                   <div style={{ fontSize:10,color:m.text3,marginBottom:4 }}>宽 {previewDims.width}px · {pDW>=0?pDW:"N/A"}级{et>1&&tiW?` · ${tiW} tiles`:""}</div>
