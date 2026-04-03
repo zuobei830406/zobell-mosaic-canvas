@@ -579,7 +579,7 @@ export default function App() {
   const [viewLevel,setViewLevel]=useState(2);
   const [sortField,setSortField]=useState("default");
   const [sortDir,setSortDir]=useState("desc");
-  const [matrixCell,setMatrixCell]=useState(null);
+  const [matrixCell,setMatrixCell]=useState({col:0,row:0});
 
   const et=tileSize===-1?custTile:tileSize;
   const ratio=ASPECT_RATIOS[selRatio];
@@ -649,7 +649,7 @@ export default function App() {
       {/* Title Bar */}
       <div style={{ background:m.bg,borderBottom:`1px solid ${m.sep}`,padding:"8px 18px",display:"flex",alignItems:"center",justifyContent:"center",userSelect:"none",position:"relative",flexShrink:0 }}>
         <MSeg options={[{value:"ratio",label:"按比例查找"},{value:"free",label:"自由查找"},{value:"analyze",label:"尺寸分析"},{value:"matrix",label:"矩阵热力图"}]}
-          value={mode} onChange={v=>{setMode(v);setSelResult(null);setShowCount(30);setSortField("default")}}/>
+          value={mode} onChange={v=>{setMode(v);setSelResult(null);setShowCount(30);setSortField("default");if(v==="matrix"&&!matrixCell)setMatrixCell({col:0,row:0})}}/>
         <span style={{ position:"absolute",right:18,fontSize:10,color:m.text3,fontFamily:m.mono }}>v4.0</span>
       </div>
 
@@ -724,7 +724,7 @@ export default function App() {
             </Panel>
           )}
 
-          <Panel title="主图叠加 Source Image Overlay">
+          {mode!=="matrix"&&<Panel title="主图叠加 Source Image Overlay">
             <div style={{ display:"flex",alignItems:"center",gap:6,marginBottom:8 }}>
               <MBtn onClick={()=>fileRef.current?.click()} primary small>📁 导入主图</MBtn>
               {image&&<MBtn onClick={()=>{setImage(null);setImgName("")}} small>✕ 清除</MBtn>}
@@ -737,7 +737,7 @@ export default function App() {
               <span style={{ fontSize:12,color:m.text,minWidth:55 }}>适配方式</span>
               <MSeg options={[{value:"width",label:"适配宽度"},{value:"height",label:"适配高度"},{value:"cover",label:"填满"}]} value={imgFit} onChange={setImgFit}/>
             </div>
-          </Panel>
+          </Panel>}
 
           <Panel title="细分等级 Subdivision Tiers">
             <div style={{ display:"flex",flexDirection:"column",gap:3 }}>
@@ -783,8 +783,8 @@ export default function App() {
 
         {/* MATRIX MODE */}
         {mode==="matrix"&&(
-          <div style={{ flex:1,display:"flex",flexDirection:"column",background:"#f4f4f4",overflow:"hidden" }}>
-            <div style={{ flex:1,position:"relative" }}>
+          <div style={{ flex:1,display:"flex",flexDirection:"column",background:"#f4f4f4",overflow:"hidden",minWidth:0 }}>
+            <div style={{ flex:1,position:"relative",minHeight:0,overflow:"hidden" }}>
               <MatrixView effectiveTile={et} selectedCell={matrixCell} onSelectCell={setMatrixCell}/>
             </div>
             {/* Cell detail bar / default info bar */}
