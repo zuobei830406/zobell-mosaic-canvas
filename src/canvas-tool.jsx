@@ -88,7 +88,7 @@ function MSel({ label, value, onChange, options }) {
 function MSlider({ label, value, min, max, step, onChange, displayValue, suffix="", lw=55 }) {
   return (<div style={{ display:"flex",alignItems:"center",gap:8,width:"100%" }}>
     {label && <span style={{ fontSize:12,color:m.text,whiteSpace:"nowrap",minWidth:lw }}>{label}</span>}
-    <input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(parseFloat(e.target.value))} style={{ flex:1,accentColor:m.accent,height:4 }}/>
+    <input type="range" min={min} max={max} step={step} value={value} onChange={e=>onChange(parseFloat(e.target.value))} style={{ flex:1 }}/>
     <span style={{ fontSize:11,fontFamily:m.mono,color:m.text2,minWidth:52,textAlign:"right" }}>{displayValue!==undefined?displayValue:value}{suffix}</span>
   </div>);
 }
