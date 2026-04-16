@@ -1,16 +1,49 @@
-# React + Vite
+# Zobell Mosaic Canvas Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional canvas size calculator for mosaic/tile-based artwork. Helps artists find optimal canvas dimensions based on tile size, aspect ratio, and subdivision depth.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Ratio Search** — Find canvas sizes by aspect ratio (1:1, 4:3, 16:9, etc.) with tile alignment
+- **Free Search** — Input custom width/height and find nearby tile-aligned sizes
+- **Size Analysis** — Analyze any dimension's subdivision chain and tile compatibility
+- **Matrix Heatmap** — Visual heatmap of all width×height combinations colored by subdivision depth
+- **Source Image Overlay** — Load a reference image onto the canvas preview
+- **Subdivision Tiers** — S/A/B/C/D grading system based on recursive subdivision depth
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Option 1: Browser (development)
 
-## Expanding the ESLint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Option 2: Desktop App (macOS)
+
+Runs as a native window via [pywebview](https://pywebview.flowrl.com/).
+
+```bash
+# First time setup
+npm install
+npm run build
+python3 -m venv venv
+source venv/bin/activate
+pip install pywebview
+
+# Run
+./start.sh
+```
+
+Or double-click `start.command` in Finder.
+
+## Tech Stack
+
+- React 19 + Vite
+- pywebview (desktop wrapper)
+- Single-file component (`src/canvas-tool.jsx`)
+
+## License
+
+MIT
