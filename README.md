@@ -2,6 +2,12 @@
 
 A professional canvas size calculator for mosaic/tile-based artwork. Helps artists find optimal canvas dimensions based on tile size, aspect ratio, and subdivision depth.
 
+## Screenshots
+
+![Ratio Search — find optimal canvas sizes with source image overlay](screenshots/ratio-search.jpg)
+
+![Matrix Heatmap — visualize all width×height combinations by subdivision depth](screenshots/matrix-heatmap.jpg)
+
 ## Features
 
 - **Ratio Search** — Find canvas sizes by aspect ratio (1:1, 4:3, 16:9, etc.) with tile alignment
